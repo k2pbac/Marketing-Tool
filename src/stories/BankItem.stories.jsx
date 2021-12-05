@@ -25,11 +25,3 @@ Clicked.args = {
   bankData: { name: "BMO", address: "123 ABC Street" },
   clicked: true,
 };
-
-export const Clickable = Template.bind({});
-
-Clickable.args = {
-  bankData: { name: "BMO", address: "123 ABC Street" },
-  clicked: false,
-  clickable: true,
-};
