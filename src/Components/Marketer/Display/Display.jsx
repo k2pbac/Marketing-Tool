@@ -11,8 +11,8 @@ import "./Display.scss";
 
 const Display = ({ bankDataArray }) => {
   const [center, setCenter] = useState({
-    lat: 43.78297556464073,
-    lng: -79.34445175884431,
+    lat: 43.76406519492777,
+    lng: -79.33268017418551,
   });
 
   const [zoom, setZoom] = useState(12);
@@ -25,6 +25,7 @@ const Display = ({ bankDataArray }) => {
           bankDataArray={bankDataArray}
           setZoom={setZoom}
           setCenter={setCenter}
+          center={center}
         />
       </Col>
       <Col xs={9}>

@@ -3,9 +3,14 @@ import React, { useState } from "react";
 import Badge from "react-bootstrap/Badge";
 
 import "./BankItem.scss";
-const BankItem = ({ bankData = {}, clicked, setZoom, setCenter }) => {
-  const [isClicked, setIsClicked] = useState(clicked);
-  const bankElements = (isClicked && Object.keys(bankData) && (
+const BankItem = ({
+  bankData = {},
+  setZoom = () => {},
+  setCenter = () => {},
+  selected,
+  setSelected,
+}) => {
+  const bankElements = (selected && Object.keys(bankData) && (
     <div>
       <p>Temp Data Header</p>
       <p>{bankData.address}</p>
@@ -15,9 +20,7 @@ const BankItem = ({ bankData = {}, clicked, setZoom, setCenter }) => {
   return (
     <div
       onClick={() => {
-        console.log("clicked");
-        setIsClicked((prev) => !prev);
-        console.log(setZoom);
+        setSelected();
         setZoom();
         setCenter();
       }}
