@@ -5,7 +5,7 @@ import "./BranchLocation.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
-const BranchLocation = ({ text, selected }) => {
+const BranchLocation = ({ text, selected, setSelected }) => {
   const [style, setStyle] = useState({ display: "none" });
 
   useEffect(() => {
@@ -18,11 +18,8 @@ const BranchLocation = ({ text, selected }) => {
 
   return (
     <div
-      onMouseEnter={() => {
-        if (!selected) setStyle({ display: "block" });
-      }}
-      onMouseLeave={() => {
-        if (!selected) setStyle({ display: "none" });
+      onClick={() => {
+        setSelected();
       }}
       className="branch-location"
     >
