@@ -2,10 +2,9 @@ import React from "react";
 
 import "./BranchMap.scss";
 import GoogleMapReact from "google-map-react";
-
 import BranchLocation from "./BranchLocation";
 
-const BranchMap = ({ branchLocationData }) => {
+const BranchMap = ({ branchLocationData, api_key }) => {
   const defaultProps = {
     center: {
       lat: 43.78297556464073,
@@ -26,7 +25,7 @@ const BranchMap = ({ branchLocationData }) => {
   return (
     <section className="branch-map">
       <GoogleMapReact
-        bootstrapURLKeys={{ key: "AIzaSyCmSIW7EeWc0nEU05b5YB8_2xCp0VksM7M" }}
+        bootstrapURLKeys={{ key: process.env.MAP_API }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >

@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import BranchMap from "../Components/Marketer/Map/BrachMap";
+import BranchMap from "../Components/Marketer/Map/BranchMap";
 
 export default {
   title: "Marketer/BranchMap",
