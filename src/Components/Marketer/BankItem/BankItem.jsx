@@ -1,16 +1,27 @@
-import React from "react";
-import Button from "react-bootstrap/Button";
+import React, { useState } from "react";
 
-import styles from "./BankItem.scss";
+import "./BankItem.scss";
+const BankItem = ({ bankData = {}, clicked, clickable = false }) => {
+  const [isClicked, setIsClicked] = useState(clicked);
 
-const BankItem = (props) => {
-  return (
+  const bankElements = (isClicked && Object.keys(bankData) && (
     <div>
+      <p>{bankData.name}</p>
+      <p>{bankData.address}</p>
+    </div>
+  )) || <></>;
+
+  return (
+    <div
+      onClick={() => {
+        if (clickable) {
+          setIsClicked((prev) => !prev);
+        }
+      }}
+      className={`bank_item bank_item__hover`}
+    >
       <h1>Bank Branch 1</h1>
-      <div>
-        <Button variant="primary">Promotion</Button>
-        <Button>Edit Branch Info</Button>
-      </div>
+      {bankElements}
     </div>
   );
 };
