@@ -19,7 +19,7 @@ const BranchMap = ({ branchLocationData }) => {
       key={branch.id}
       lat={branch.lat}
       lng={branch.lng}
-      text={`Branch${index}`}
+      text={`Branch #${index + 1}`}
     />
   ));
 

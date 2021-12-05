@@ -1,29 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import "./BranchLocation.scss";
-
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
 const BranchLocation = ({ text }) => {
+  const [style, setStyle] = useState({ display: "none" });
+
   return (
-    <div className="branch-location">
-      <OverlayTrigger
-        key="top"
-        placement="top"
-        overlay={
-          <Tooltip>
-            Tooltip on <strong>top</strong>.
-          </Tooltip>
-        }
-      >
-        <h3>
+    <div
+      onMouseEnter={() => setStyle({ display: "block" })}
+      onMouseLeave={() => setStyle({ display: "none" })}
+      className="branch-location"
+    >
+      <h3>
+        <div className={`text-wrapper hvr-bubble-bottom`} style={style}>
+          {text}
+        </div>
+        <div className="icon-wrapper">
           <FontAwesomeIcon icon={faMapMarkerAlt} />
-        </h3>
-      </OverlayTrigger>
+        </div>
+      </h3>
     </div>
   );
 };
