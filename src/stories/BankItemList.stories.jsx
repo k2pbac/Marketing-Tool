@@ -16,9 +16,9 @@ const Template = (args) => <BankItemList {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   bankDataArray: [
-    { id: 1, name: "BMO", address: "123 ABC Street" },
-    { id: 2, name: "BMO", address: "123 ABC Street" },
-    { id: 3, name: "BMO", address: "123 ABC Street" },
-    { id: 4, name: "BMO", address: "123 ABC Street" },
+    { id: 1, position: "A", name: "BMO", address: "123 ABC Street" },
+    { id: 2, position: "B", name: "BMO", address: "123 ABC Street" },
+    { id: 3, position: "C", name: "BMO", address: "123 ABC Street" },
+    { id: 4, position: "D", name: "BMO", address: "123 ABC Street" },
   ],
 };

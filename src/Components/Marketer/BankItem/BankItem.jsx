@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Badge from "react-bootstrap/Badge";
+
 import "./BankItem.scss";
 const BankItem = ({ bankData = {}, clicked }) => {
   const [isClicked, setIsClicked] = useState(clicked);
@@ -17,7 +19,13 @@ const BankItem = ({ bankData = {}, clicked }) => {
       }}
       className={`bank_item bank_item__hover`}
     >
-      <h1>Bank of Montreal</h1>
+      <h1>
+        {/* {" "}
+        <Badge className="bank_item__badge" bg="success" text="white">
+          {bankData.position}
+        </Badge>{" "} */}
+        Bank of Montreal
+      </h1>
       {bankElements}
     </div>
   );
