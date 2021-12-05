@@ -4,16 +4,8 @@ import "./BranchMap.scss";
 import GoogleMapReact from "google-map-react";
 import BranchLocation from "./BranchLocation";
 
-const BranchMap = ({ branchLocationData, api_key }) => {
-  const defaultProps = {
-    center: {
-      lat: 43.78297556464073,
-      lng: -79.34445175884431,
-    },
-    zoom: 12,
-  };
-
-  const branchLocationElements = branchLocationData.map((branch, index) => (
+const BranchMap = ({ bankDataArray, zoom, center }) => {
+  const branchLocationElements = bankDataArray.map((branch, index) => (
     <BranchLocation
       key={branch.id}
       lat={branch.lat}
@@ -25,9 +17,9 @@ const BranchMap = ({ branchLocationData, api_key }) => {
   return (
     <section className="branch-map">
       <GoogleMapReact
-        bootstrapURLKeys={{ key: process.env.MAP_API }}
-        defaultCenter={defaultProps.center}
-        defaultZoom={defaultProps.zoom}
+        bootstrapURLKeys={{ key: process.env.REACT_APP_MAP_API }}
+        center={center}
+        zoom={zoom}
       >
         {branchLocationElements}
       </GoogleMapReact>

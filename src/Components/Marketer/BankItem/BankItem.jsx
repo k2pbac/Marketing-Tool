@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Badge from "react-bootstrap/Badge";
 
 import "./BankItem.scss";
-const BankItem = ({ bankData = {}, clicked }) => {
+const BankItem = ({ bankData = {}, clicked, setZoom, setCenter }) => {
   const [isClicked, setIsClicked] = useState(clicked);
   const bankElements = (isClicked && Object.keys(bankData) && (
     <div>
@@ -15,7 +15,11 @@ const BankItem = ({ bankData = {}, clicked }) => {
   return (
     <div
       onClick={() => {
+        console.log("clicked");
         setIsClicked((prev) => !prev);
+        console.log(setZoom);
+        setZoom();
+        setCenter();
       }}
       className={`bank_item bank_item__hover`}
     >
