@@ -9,6 +9,14 @@ const BankItemList = ({ setCenter = () => {} }) => {
   const { selectedBranch, setSelectedBranch, branchData, setBranchData } =
     useContext(BranchContext);
 
+  const deleteBranch = (id) => {
+    setBranchData((prev) => {
+      const newObj = prev.filter((el) => el.id !== id);
+      localStorage.setItem("branchData", JSON.stringify(newObj));
+      return newObj;
+    });
+  };
+
   const bankBranchElements = branchData.map((branch) => (
     <BankItem
       key={branch.id}
@@ -20,6 +28,7 @@ const BankItemList = ({ setCenter = () => {} }) => {
         } else setSelectedBranch(branch.id);
       }}
       selected={branch.id === selectedBranch}
+      deleteBranch={() => deleteBranch(branch.id)}
     />
   ));
 

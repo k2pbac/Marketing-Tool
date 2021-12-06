@@ -1,5 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import Container from "../../UI/Container/Container";
+import Button from "react-bootstrap/Button";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+
+import BranchContext from "../../../store/branch-context";
 
 import "./BankItem.scss";
 const BankItem = ({
@@ -8,22 +14,36 @@ const BankItem = ({
   setCenter = () => {},
   selected,
   setSelected,
+  deleteBranch,
 }) => {
   const bankElements = (selected && Object.keys(bankData) && (
     <div>
-      <p>{bankData.address}</p>
+      <p style={{ marginBottom: "10px" }}>{bankData.address}</p>
+      <Button style={{ marginRight: "10px" }} size="sm" variant="success">
+        Promotion
+      </Button>
     </div>
   )) || <></>;
 
   return (
     <Container
       onClick={() => {
-        setSelected();
-        setZoom();
-        setCenter();
+        if (!selected) {
+          setSelected();
+          setZoom();
+          setCenter();
+        }
       }}
-      className={`bank_item bank_item__hover`}
+      className={`bank_item ${(!selected && "hoverable") || ""}`}
     >
+      {selected && (
+        <FontAwesomeIcon
+          className="delete-item__icon"
+          color="red"
+          icon={faTimes}
+          onClick={deleteBranch}
+        />
+      )}
       <h1>Branch #{bankData.id}</h1>
       {bankElements}
     </Container>

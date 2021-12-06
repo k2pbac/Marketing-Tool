@@ -32,7 +32,7 @@ const BranchMap = ({ zoom, center }) => {
 
   const { selectedBranch, setSelectedBranch, branchData, setBranchData } =
     useContext(BranchContext);
-  const { location, setLocation, updateLocation } = useContext(LocationContext);
+  const { location, updateLocation } = useContext(LocationContext);
   const [displayPopover, setDisplayPopover] = useState(false);
   const [centerState, setCenterState] = useState(center);
 
@@ -50,6 +50,10 @@ const BranchMap = ({ zoom, center }) => {
       );
     }
   }, [location, updateLocation]);
+
+  useEffect(() => {
+    setCenterState(center);
+  }, [center]);
 
   const createNewBranch = () => {
     setBranchData((prev) => {
