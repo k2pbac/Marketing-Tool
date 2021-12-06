@@ -4,6 +4,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import BranchContext from "../../../store/branch-context";
 import LocationContext from "../../../store/location-context";
+import SearchBox from "../Map/SearchBox";
 
 import BankItemList from "../BankItemsList/BankItemList";
 import BranchMap from "../Map/BranchMap";
@@ -34,8 +35,14 @@ const Display = () => {
       >
         <Row>
           <Col xs={3} className="bank-items-panel">
-            <div className="d-flex justify-content-center">
+            <div
+              style={{ height: "300px" }}
+              className="d-flex justify-content-center flex-column align-items-center m-auto"
+            >
               <img className="bank-logo" src="images/logo.png" alt="..." />
+              <div className="d-flex justify-content-center">
+                <SearchBox />
+              </div>
             </div>
             <BankItemList
               setZoom={setZoom}

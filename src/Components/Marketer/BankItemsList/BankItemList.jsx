@@ -3,7 +3,6 @@ import React, { useState, useContext, useEffect } from "react";
 import BranchContext from "../../../store/branch-context";
 
 import BankItem from "../BankItem/BankItem";
-import SearchBox from "../Map/SearchBox";
 import "./BankItemList.scss";
 
 const BankItemList = ({ setCenter = () => {} }) => {
@@ -26,7 +25,6 @@ const BankItemList = ({ setCenter = () => {} }) => {
 
   return (
     <div className="bank-item-list">
-      <SearchBox />
       <div>{bankBranchElements.length && bankBranchElements}</div>
     </div>
   );

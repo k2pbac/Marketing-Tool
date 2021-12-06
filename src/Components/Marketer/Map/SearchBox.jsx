@@ -65,6 +65,7 @@ export default function SearchBox() {
             onChange={handleInput}
             disabled={!ready}
             ref={inputValue}
+            placeholder="Enter a location"
           />
           <ComboboxPopover style={{ marginRight: "10px" }}>
             <ComboboxList>
