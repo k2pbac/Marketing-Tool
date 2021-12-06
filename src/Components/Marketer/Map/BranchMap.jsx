@@ -14,7 +14,7 @@ import BranchLocation from "./BranchLocation";
 import Geocode from "react-geocode";
 Geocode.setApiKey(process.env.REACT_APP_MAP_API);
 
-const BranchMap = ({ bankDataArray, zoom, center }) => {
+const BranchMap = ({ zoom, center }) => {
   const [mapref, setMapRef] = React.useState(null);
   const handleOnLoad = (map) => {
     setMapRef(map);
@@ -30,9 +30,9 @@ const BranchMap = ({ bankDataArray, zoom, center }) => {
     }
   };
 
-  const { selectedBranch, setSelectedBranch } = useContext(BranchContext);
+  const { selectedBranch, setSelectedBranch, branchData, setBranchData } =
+    useContext(BranchContext);
   const { location, setLocation, updateLocation } = useContext(LocationContext);
-  const [bankData, setBankData] = useState(bankDataArray);
   const [displayPopover, setDisplayPopover] = useState(false);
   const [centerState, setCenterState] = useState(center);
 
@@ -51,13 +51,32 @@ const BranchMap = ({ bankDataArray, zoom, center }) => {
     }
   }, [location, updateLocation]);
 
+  const createNewBranch = () => {
+    setBranchData((prev) => {
+      const newBranch = {
+        id: prev.length + 1,
+        address: location,
+        lat: centerState.lat,
+        lng: centerState.lng,
+      };
+      localStorage.setItem("branchData", JSON.stringify([...prev, newBranch]));
+      return [...prev, newBranch];
+    });
+    setDisplayPopover(false);
+  };
+
   const popover = (
     <Popover className="popover" lng={centerState.lng} lat={centerState.lat}>
       <Popover.Header as="h3">New Branch</Popover.Header>
       <Popover.Body className="new-location-info">
         <p style={{ marginBottom: "10px" }}>{location}</p>
         <div>
-          <Button style={{ marginRight: "10px" }} size="sm" variant="success">
+          <Button
+            onClick={createNewBranch}
+            style={{ marginRight: "10px" }}
+            size="sm"
+            variant="success"
+          >
             Confirm
           </Button>
           <Button
@@ -78,7 +97,7 @@ const BranchMap = ({ bankDataArray, zoom, center }) => {
     </Popover>
   );
 
-  const branchLocationElements = bankData.map((branch, index) => {
+  const branchLocationElements = branchData.map((branch, index) => {
     return (
       <BranchLocation
         key={branch.id}
