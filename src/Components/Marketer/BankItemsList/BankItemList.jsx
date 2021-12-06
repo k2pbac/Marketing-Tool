@@ -17,6 +17,21 @@ const BankItemList = ({ setCenter = () => {} }) => {
     });
   };
 
+  const addPromotionDetails = (id, promotion = "", image = "") => {
+    setBranchData((prev) => {
+      const newObj = [...prev];
+      prev.map((el) => {
+        if (el.id === id) {
+          el.promotion.caption = promotion;
+          el.promotion.image = image;
+        }
+      });
+
+      localStorage.setItem("branchData", JSON.stringify(newObj));
+      return newObj;
+    });
+  };
+
   const bankBranchElements = branchData.map((branch) => (
     <BankItem
       key={branch.id}
@@ -29,6 +44,9 @@ const BankItemList = ({ setCenter = () => {} }) => {
       }}
       selected={branch.id === selectedBranch}
       deleteBranch={() => deleteBranch(branch.id)}
+      addPromotionDetails={(promotion, image) =>
+        addPromotionDetails(branch.id, promotion, image)
+      }
     />
   ));
 

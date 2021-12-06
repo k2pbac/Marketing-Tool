@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -25,6 +25,12 @@ const Display = () => {
     JSON.parse(localStorage.getItem("branchData")) ||
       bankDataArray.bankDataArray
   );
+
+  useEffect(() => {
+    if (!JSON.parse(localStorage.getItem("branchData"))) {
+      localStorage.setItem("branchData", JSON.stringify(branchData));
+    }
+  }, []);
 
   return (
     <LocationContext.Provider

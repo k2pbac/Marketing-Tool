@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import "./BranchMap.scss";
 
@@ -62,6 +62,7 @@ const BranchMap = ({ zoom, center }) => {
         address: location,
         lat: centerState.lat,
         lng: centerState.lng,
+        promotion: { caption: "", image: "" },
       };
       localStorage.setItem("branchData", JSON.stringify([...prev, newBranch]));
       return [...prev, newBranch];
