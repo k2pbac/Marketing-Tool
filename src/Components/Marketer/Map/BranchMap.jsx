@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import "./BranchMap.scss";
 
@@ -32,7 +32,7 @@ const BranchMap = ({ zoom, center }) => {
 
   const { selectedBranch, setSelectedBranch, branchData, setBranchData } =
     useContext(BranchContext);
-  const { location, setLocation, updateLocation } = useContext(LocationContext);
+  const { location, updateLocation } = useContext(LocationContext);
   const [displayPopover, setDisplayPopover] = useState(false);
   const [centerState, setCenterState] = useState(center);
 
@@ -51,6 +51,10 @@ const BranchMap = ({ zoom, center }) => {
     }
   }, [location, updateLocation]);
 
+  useEffect(() => {
+    setCenterState(center);
+  }, [center]);
+
   const createNewBranch = () => {
     setBranchData((prev) => {
       const newBranch = {
@@ -58,6 +62,7 @@ const BranchMap = ({ zoom, center }) => {
         address: location,
         lat: centerState.lat,
         lng: centerState.lng,
+        promotion: { caption: "", image: "" },
       };
       localStorage.setItem("branchData", JSON.stringify([...prev, newBranch]));
       return [...prev, newBranch];

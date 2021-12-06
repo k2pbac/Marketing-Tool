@@ -3,18 +3,34 @@ import React, { useState, useContext, useEffect } from "react";
 import BranchContext from "../../../store/branch-context";
 
 import BankItem from "../BankItem/BankItem";
-import SearchBox from "../Map/SearchBox";
 import "./BankItemList.scss";
 
 const BankItemList = ({ setCenter = () => {} }) => {
   const { selectedBranch, setSelectedBranch, branchData, setBranchData } =
     useContext(BranchContext);
 
-  console.log({ selectedBranch, setSelectedBranch, branchData, setBranchData });
+  const deleteBranch = (id) => {
+    setBranchData((prev) => {
+      const newObj = prev.filter((el) => el.id !== id);
+      localStorage.setItem("branchData", JSON.stringify(newObj));
+      return newObj;
+    });
+  };
 
-  useEffect(() => {
-    console.log("changed");
-  }, [branchData]);
+  const addPromotionDetails = (id, promotion = "", image = "") => {
+    setBranchData((prev) => {
+      const newObj = [...prev];
+      prev.map((el) => {
+        if (el.id === id) {
+          el.promotion.caption = promotion;
+          el.promotion.image = image;
+        }
+      });
+
+      localStorage.setItem("branchData", JSON.stringify(newObj));
+      return newObj;
+    });
+  };
 
   const bankBranchElements = branchData.map((branch) => (
     <BankItem
@@ -27,12 +43,15 @@ const BankItemList = ({ setCenter = () => {} }) => {
         } else setSelectedBranch(branch.id);
       }}
       selected={branch.id === selectedBranch}
+      deleteBranch={() => deleteBranch(branch.id)}
+      addPromotionDetails={(promotion, image) =>
+        addPromotionDetails(branch.id, promotion, image)
+      }
     />
   ));
 
   return (
     <div className="bank-item-list">
-      <SearchBox />
       <div>{bankBranchElements.length && bankBranchElements}</div>
     </div>
   );
