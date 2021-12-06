@@ -1,4 +1,6 @@
 .bank-item-list {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  padding-left: 20px;
 }
