@@ -1,4 +1,5 @@
 import React from "react";
+import Container from "../../UI/Container/Container";
 
 import "./BankItem.scss";
 const BankItem = ({
@@ -15,7 +16,7 @@ const BankItem = ({
   )) || <></>;
 
   return (
-    <div
+    <Container
       onClick={() => {
         setSelected();
         setZoom();
@@ -25,7 +26,7 @@ const BankItem = ({
     >
       <h1>Branch #{bankData.id}</h1>
       {bankElements}
-    </div>
+    </Container>
   );
 };
 

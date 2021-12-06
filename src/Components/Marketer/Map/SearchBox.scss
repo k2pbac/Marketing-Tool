@@ -1,0 +1,28 @@
+.SearchBox {
+  font-family: "Roboto", sans-serif;
+  padding: 2rem 1rem;
+  text-align: center;
+
+  h1 {
+    font-family: "Bungee Shade", cursive;
+  }
+
+  .search-icon {
+    cursor: pointer;
+  }
+}
+
+.title {
+  margin: 0 0 0.75rem;
+  font-size: 2.25rem;
+}
+
+.subtitle {
+  margin: 0 0 2.5rem;
+  font-size: 1.25rem;
+}
+
+.logo {
+  text-align: right;
+  padding: 0.25rem 0.5rem;
+}
