@@ -1,18 +1,22 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
-import LocationContext from "../../../store/location-context";
 import BranchContext from "../../../store/branch-context";
 
-import Container from "../../UI/Container/Container";
 import BankItem from "../BankItem/BankItem";
 import SearchBox from "../Map/SearchBox";
 import "./BankItemList.scss";
 
-const BankItemList = ({ bankDataArray, setCenter = () => {} }) => {
-  const [bankData, setBankData] = useState(bankDataArray);
+const BankItemList = ({ setCenter = () => {} }) => {
+  const { selectedBranch, setSelectedBranch, branchData, setBranchData } =
+    useContext(BranchContext);
 
-  const { selectedBranch, setSelectedBranch } = useContext(BranchContext);
-  const bankBranchElements = bankData.map((branch) => (
+  console.log({ selectedBranch, setSelectedBranch, branchData, setBranchData });
+
+  useEffect(() => {
+    console.log("changed");
+  }, [branchData]);
+
+  const bankBranchElements = branchData.map((branch) => (
     <BankItem
       key={branch.id}
       bankData={branch}
@@ -30,20 +34,6 @@ const BankItemList = ({ bankDataArray, setCenter = () => {} }) => {
     <div className="bank-item-list">
       <SearchBox />
       <div>{bankBranchElements.length && bankBranchElements}</div>
-      <Container
-        onClick={() =>
-          setBankData((prev) => {
-            const newArray = [
-              ...prev,
-              { id: 4, position: "C", name: "BMO", address: "123 ABC Street" },
-            ];
-            return newArray;
-          })
-        }
-        className="new-item"
-      >
-        <h1>Create new branch</h1>
-      </Container>
     </div>
   );
 };
