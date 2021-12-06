@@ -10,12 +10,6 @@ const BankItemList = ({ setCenter = () => {} }) => {
   const { selectedBranch, setSelectedBranch, branchData, setBranchData } =
     useContext(BranchContext);
 
-  console.log({ selectedBranch, setSelectedBranch, branchData, setBranchData });
-
-  useEffect(() => {
-    console.log("changed");
-  }, [branchData]);
-
   const bankBranchElements = branchData.map((branch) => (
     <BankItem
       key={branch.id}
