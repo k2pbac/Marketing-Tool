@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 
 import "./BranchMap.scss";
 
@@ -15,19 +15,32 @@ import Geocode from "react-geocode";
 Geocode.setApiKey(process.env.REACT_APP_MAP_API);
 
 const BranchMap = ({ bankDataArray, zoom, center }) => {
+  const [mapref, setMapRef] = React.useState(null);
+  const handleOnLoad = (map) => {
+    setMapRef(map);
+  };
+
+  const handleCenterChanged = () => {
+    if (mapref) {
+      setCenterState({
+        lat: mapref.map.center.lat(),
+        lng: mapref.map.center.lng(),
+      });
+      setDisplayPopover(false);
+    }
+  };
+
   const { selectedBranch, setSelectedBranch } = useContext(BranchContext);
-  const { location, setLocation } = useContext(LocationContext);
+  const { location, setLocation, updateLocation } = useContext(LocationContext);
   const [bankData, setBankData] = useState(bankDataArray);
   const [displayPopover, setDisplayPopover] = useState(false);
   const [centerState, setCenterState] = useState(center);
 
   useEffect(() => {
-    console.log("here");
     if (location) {
       Geocode.fromAddress(location).then(
         (response) => {
           const { lat, lng } = response.results[0].geometry.location;
-          console.log(lat, lng);
           setCenterState({ lat, lng });
           setDisplayPopover(true);
         },
@@ -36,10 +49,10 @@ const BranchMap = ({ bankDataArray, zoom, center }) => {
         }
       );
     }
-  }, [location]);
+  }, [location, updateLocation]);
 
   const popover = (
-    <Popover lng={centerState.lng} lat={centerState.lat}>
+    <Popover className="popover" lng={centerState.lng} lat={centerState.lat}>
       <Popover.Header as="h3">New Branch</Popover.Header>
       <Popover.Body className="new-location-info">
         <p style={{ marginBottom: "10px" }}>{location}</p>
@@ -51,8 +64,8 @@ const BranchMap = ({ bankDataArray, zoom, center }) => {
             onClick={() => {
               setDisplayPopover(false);
               setCenterState((prev) => ({
-                lat: prev.lat + 0.10000000000002,
-                lng: prev.lng + 0.10000000000002,
+                lat: prev.lat + 0.00000000000002,
+                lng: prev.lng + 0.00000000000002,
               }));
             }}
             size="sm"
@@ -89,6 +102,8 @@ const BranchMap = ({ bankDataArray, zoom, center }) => {
           bootstrapURLKeys={{ key: process.env.REACT_APP_MAP_API }}
           center={centerState}
           zoom={zoom}
+          onDragEnd={handleCenterChanged}
+          onGoogleApiLoaded={handleOnLoad}
         >
           {branchLocationElements}
           {displayPopover && popover}

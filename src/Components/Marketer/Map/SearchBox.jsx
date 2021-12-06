@@ -25,7 +25,8 @@ export default function SearchBox() {
 
   const inputValue = useRef("");
 
-  const { location, setLocation } = useContext(LocationContext);
+  const { location, setLocation, updateLocation, setUpdateLocation } =
+    useContext(LocationContext);
 
   const handleInput = (e) => {
     setValue(e.target.value);
@@ -75,6 +76,7 @@ export default function SearchBox() {
             style={{ position: "absolute", right: "-10px" }}
             onClick={() => {
               setLocation(inputValue.current.value);
+              setUpdateLocation((prev) => !prev);
             }}
           >
             <FontAwesomeIcon icon={faSearch} />

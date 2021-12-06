@@ -19,9 +19,12 @@ const Display = ({ bankDataArray }) => {
   const [zoom, setZoom] = useState(12);
   const [selectedBranch, setSelectedBranch] = useState(null);
   const [location, setLocation] = useState("");
+  const [updateLocation, setUpdateLocation] = useState(false);
 
   return (
-    <LocationContext.Provider value={{ location, setLocation }}>
+    <LocationContext.Provider
+      value={{ location, setLocation, updateLocation, setUpdateLocation }}
+    >
       <BranchContext.Provider value={{ selectedBranch, setSelectedBranch }}>
         <Row>
           <Col xs={3} className="bank-items-panel">
